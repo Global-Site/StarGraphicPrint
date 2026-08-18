@@ -45,11 +45,75 @@
   ::selection{background:var(--yellow);color:var(--ink);}
 
   /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,.8,.24,1), transform .7s cubic-bezier(.16,.8,.24,1);}
   .reveal.is-visible{opacity:1;transform:translateY(0);}
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none;}
   }
+
+  /* stagger the cascade inside grids — like sheets coming off a press */
+  .prod-grid .reveal:nth-child(1),.proc-grid .reveal:nth-child(1),.why-grid .reveal:nth-child(1),.shopcat-grid .reveal:nth-child(1),.testi-grid .reveal:nth-child(1),.deals-grid .reveal:nth-child(1),.work-grid .reveal:nth-child(1),.stats-grid .reveal:nth-child(1){transition-delay:0ms;}
+  .prod-grid .reveal:nth-child(2),.proc-grid .reveal:nth-child(2),.why-grid .reveal:nth-child(2),.shopcat-grid .reveal:nth-child(2),.testi-grid .reveal:nth-child(2),.deals-grid .reveal:nth-child(2),.work-grid .reveal:nth-child(2),.stats-grid .reveal:nth-child(2){transition-delay:70ms;}
+  .prod-grid .reveal:nth-child(3),.proc-grid .reveal:nth-child(3),.why-grid .reveal:nth-child(3),.shopcat-grid .reveal:nth-child(3),.testi-grid .reveal:nth-child(3),.deals-grid .reveal:nth-child(3),.work-grid .reveal:nth-child(3),.stats-grid .reveal:nth-child(3){transition-delay:140ms;}
+  .prod-grid .reveal:nth-child(4),.proc-grid .reveal:nth-child(4),.why-grid .reveal:nth-child(4),.shopcat-grid .reveal:nth-child(4),.testi-grid .reveal:nth-child(4),.deals-grid .reveal:nth-child(4),.work-grid .reveal:nth-child(4),.stats-grid .reveal:nth-child(4){transition-delay:210ms;}
+  .prod-grid .reveal:nth-child(5),.shopcat-grid .reveal:nth-child(5){transition-delay:280ms;}
+  .prod-grid .reveal:nth-child(6),.shopcat-grid .reveal:nth-child(6){transition-delay:350ms;}
+  .prod-grid .reveal:nth-child(7),.shopcat-grid .reveal:nth-child(7){transition-delay:420ms;}
+  .prod-grid .reveal:nth-child(8),.shopcat-grid .reveal:nth-child(8){transition-delay:490ms;}
+  .prod-grid .reveal:nth-child(9){transition-delay:560ms;}
+  @media (prefers-reduced-motion: reduce){
+    .prod-grid .reveal,.proc-grid .reveal,.why-grid .reveal,.shopcat-grid .reveal,.testi-grid .reveal,.deals-grid .reveal,.work-grid .reveal,.stats-grid .reveal{transition-delay:0ms !important;}
+  }
+
+  /* ---------- top scroll progress (registration-mark colour run) ---------- */
+  .scroll-progress{
+    position:fixed;top:0;left:0;height:3px;width:0%;z-index:70;
+    background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--yellow));
+    transition:width .1s linear;
+  }
+
+  /* ---------- page loader (press registration animation) ---------- */
+  .loader{
+    position:fixed;inset:0;z-index:200;background:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    transition:opacity .5s ease, visibility .5s ease;
+  }
+  .loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none;}
+  .loader-mark{position:relative;width:74px;height:74px;}
+  .loader-mark svg{position:absolute;top:0;left:0;width:100%;height:100%;}
+  .loader-mark .lm-c{color:var(--cyan);animation:markConverge 1.1s cubic-bezier(.16,.8,.24,1) infinite;}
+  .loader-mark .lm-m{color:var(--magenta);animation:markConverge 1.1s cubic-bezier(.16,.8,.24,1) infinite .12s;}
+  .loader-mark .lm-y{color:var(--yellow);animation:markConverge 1.1s cubic-bezier(.16,.8,.24,1) infinite .24s;}
+  .loader-mark .lm-k{color:var(--ink);animation:markFade 1.1s ease infinite;}
+  @keyframes markConverge{
+    0%{transform:translate(-6px,-4px) scale(1.15);opacity:.35;}
+    55%{transform:translate(0,0) scale(1);opacity:1;}
+    100%{transform:translate(-6px,-4px) scale(1.15);opacity:.35;}
+  }
+  @keyframes markFade{
+    0%,100%{opacity:.25;}
+    55%{opacity:1;}
+  }
+  .loader-label{
+    position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);
+    font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-soft);white-space:nowrap;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .loader-mark .lm-c,.loader-mark .lm-m,.loader-mark .lm-y,.loader-mark .lm-k{animation:none;}
+  }
+
+  /* ---------- button ink-sweep ---------- */
+  .btn{position:relative;overflow:hidden;}
+  .btn::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+    transform:translateX(-120%);transition:transform .6s ease;
+  }
+  .btn:hover::before{transform:translateX(120%);}
+
+  /* ---------- count-up nudge ---------- */
+  .stat .num{transition:opacity .3s ease;}
 
   /* ---------- registration mark icon (brand signature) ---------- */
   .regmark{width:1em;height:1em;flex-shrink:0;}
@@ -78,9 +142,10 @@
     max-width:var(--maxw);margin:0 auto;
   }
   .brand{display:flex;align-items:center;gap:10px;}
-  .brand .regmark{width:30px;height:30px;color:var(--ink);}
+  .brand .regmark{width:30px;height:30px;color:var(--ink);transition:transform .45s cubic-bezier(.16,.8,.24,1);}
   .brand .regmark circle:nth-child(1){stroke:var(--cyan);}
   .brand .regmark line{stroke:var(--magenta);}
+  .brand:hover .regmark{transform:rotate(90deg);}
   .brand-text{line-height:1.05;}
   .brand-text .name{font-family:'Anton';font-size:20px;letter-spacing:.02em;}
   .brand-text .tag{display:block;font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase;margin-top:2px;}
@@ -114,6 +179,104 @@
   .burger{display:none;background:none;border:1.5px solid var(--ink);border-radius:var(--radius);width:42px;height:38px;align-items:center;justify-content:center;}
   .burger span, .burger::before, .burger::after{content:"";display:block;width:18px;height:2px;background:var(--ink);}
   .burger{flex-direction:column;gap:4px;}
+
+  .cart-btn{
+    position:relative;background:none;border:1.5px solid var(--ink);border-radius:var(--radius);
+    width:42px;height:38px;display:flex;align-items:center;justify-content:center;color:var(--ink);
+    flex-shrink:0;margin-left:16px;transition:background .18s ease,color .18s ease;
+  }
+  .cart-btn:hover{background:var(--ink);color:var(--paper);}
+  .cart-badge{
+    position:absolute;top:-7px;right:-7px;min-width:18px;height:18px;padding:0 4px;
+    background:var(--magenta);color:var(--paper);border-radius:999px;
+    font-family:'IBM Plex Mono';font-size:10.5px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cart-badge[hidden]{display:none;}
+
+  /* ---------- Cart drawer ---------- */
+  .cart-list{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+  .cart-item{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+    background:var(--paper-2);border:1.5px solid var(--rule-strong);border-radius:var(--radius);
+    padding:12px 14px;
+  }
+  .cart-item .ci-info{font-size:13px;line-height:1.5;}
+  .cart-item .ci-cat{font-weight:700;color:var(--ink);}
+  .cart-item .ci-combo{color:var(--ink-soft);font-size:12.5px;}
+  .cart-item .ci-remove{
+    flex-shrink:0;background:none;border:1.5px solid var(--rule-strong);border-radius:50%;
+    width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);font-size:16px;line-height:1;
+  }
+  .cart-item .ci-remove:hover{border-color:var(--magenta);color:var(--magenta);}
+  .cart-empty{
+    text-align:center;padding:30px 16px;border:1.5px dashed var(--rule-strong);
+    border-radius:var(--radius);color:var(--ink-soft);font-size:13.5px;margin-bottom:22px;
+  }
+  .cart-note{font-size:12px;color:var(--ink-soft);border-top:1px dashed var(--rule-strong);padding-top:14px;margin-bottom:18px;}
+
+  /* ---------- Checkout modal ---------- */
+  .checkout-summary{
+    background:var(--paper-2);border:1.5px solid var(--rule-strong);border-radius:var(--radius);
+    padding:14px 16px;margin-bottom:22px;font-size:13px;color:var(--ink-soft);
+  }
+  .checkout-summary .cs-item{display:flex;justify-content:space-between;gap:10px;padding:5px 0;}
+  .checkout-summary .cs-item strong{color:var(--ink);}
+
+  .checkout-form{display:flex;flex-direction:column;gap:14px;margin-bottom:24px;}
+  .checkout-form .form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .checkout-form label{
+    font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-soft);display:block;margin-bottom:6px;
+  }
+  .checkout-form input{
+    width:100%;background:var(--paper-2);border:1.5px solid var(--rule-strong);border-radius:var(--radius);
+    padding:10px 12px;font-family:'Inter';font-size:14px;color:var(--ink);
+  }
+  .checkout-form input:focus{outline:none;border-color:var(--ink);}
+
+  .pay-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+  .pay-tab{
+    font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+    padding:9px 16px;border-radius:999px;border:1.5px solid var(--rule-strong);background:var(--paper-2);
+    color:var(--ink-soft);font-weight:700;
+  }
+  .pay-tab.active{background:var(--ink);border-color:var(--ink);color:var(--paper);}
+
+  .pay-panel{display:none;}
+  .pay-panel.active{display:block;}
+
+  .pay-box{
+    background:var(--paper-2);border:1.5px solid var(--rule-strong);border-radius:var(--radius);
+    padding:18px;margin-bottom:14px;
+  }
+  .pay-box h5{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;}
+  .pay-row{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:9px 0;border-bottom:1px dashed var(--rule);font-size:13px;
+  }
+  .pay-row:last-child{border-bottom:none;}
+  .pay-row .pr-label{color:var(--ink-soft);}
+  .pay-row .pr-value{font-family:'IBM Plex Mono';font-weight:700;color:var(--ink);}
+  .pay-copy{
+    background:none;border:1px solid var(--rule-strong);border-radius:6px;
+    padding:3px 9px;font-size:11px;color:var(--ink-soft);flex-shrink:0;
+  }
+  .pay-copy:hover{border-color:var(--ink);color:var(--ink);}
+  .qr-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 0;}
+  .qr-wrap img{width:190px;height:190px;border-radius:8px;border:1.5px solid var(--rule-strong);}
+  .qr-wrap p{font-size:12px;color:var(--ink-soft);text-align:center;max-width:36ch;}
+  .pay-hint{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:4px;}
+
+  .confirm-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;
+    padding:14px 18px;border-radius:var(--radius);transition:background .15s ease;
+  }
+  .confirm-btn:hover{background:var(--magenta);}
+  .confirm-btn:disabled{opacity:.5;cursor:not-allowed;}
+  .confirm-btn:disabled:hover{background:var(--ink);}
 
   /* ================= HERO ================= */
   .hero{
@@ -343,7 +506,8 @@
   .prod-card .corner.tr{top:8px;right:8px;}
   .prod-card .corner.bl{bottom:8px;left:8px;}
   .prod-card .corner.br{bottom:8px;right:8px;}
-  .prod-icon{width:42px;height:42px;color:var(--ink);margin-bottom:18px;}
+  .prod-icon{width:42px;height:42px;color:var(--ink);margin-bottom:18px;transition:transform .35s cubic-bezier(.16,.8,.24,1);}
+  .prod-card:hover .prod-icon{transform:translateY(-3px) rotate(-6deg);}
   .prod-card:nth-child(3n+1) .prod-icon{color:var(--cyan);}
   .prod-card:nth-child(3n+2) .prod-icon{color:var(--magenta);}
   .prod-card:nth-child(3n+3) .prod-icon{color:#B98A00;}
@@ -484,11 +648,92 @@
   .modal-tile:nth-child(6){filter:brightness(1.08) saturate(1.2);}
   .modal-tile:nth-child(7){filter:hue-rotate(25deg);}
   .modal-tile:nth-child(8){filter:brightness(.95) saturate(.85);}
+  .modal-tile.filtered-out{display:none;}
   .modal-note{font-size:12.5px;color:var(--ink-soft);border-top:1px dashed var(--rule-strong);padding-top:16px;margin-bottom:20px;}
+
+  .modal-specs{
+    border-bottom:1px solid var(--rule);padding-bottom:24px;margin-bottom:24px;
+    display:none;
+  }
+  .modal-specs.show{display:block;}
+  .modal-specs .specs-title{
+    font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--magenta);margin-bottom:6px;
+  }
+  .modal-specs .specs-hint{font-size:12.5px;color:var(--ink-soft);margin-bottom:18px;}
+  .modal-specs .specs-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .modal-specs h4{
+    font-family:'Inter';font-weight:700;font-size:13px;letter-spacing:.01em;
+    color:var(--ink);margin-bottom:10px;
+  }
+  .filter-chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .filter-chip{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--paper-2);border:1.5px solid var(--rule-strong);border-radius:999px;
+    padding:7px 14px;transition:background .18s ease,border-color .18s ease,color .18s ease;
+  }
+  .filter-chip .chip-label{
+    font-size:12.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;white-space:nowrap;
+  }
+  .filter-chip .chip-label::before{
+    content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ink-soft);flex-shrink:0;
+    transition:background .18s ease,border-color .18s ease;
+  }
+  .filter-chip:hover{border-color:var(--ink);}
+  .filter-chip.active{background:var(--ink);border-color:var(--ink);}
+  .filter-chip.active .chip-label{color:var(--paper);}
+  .filter-chip.active .chip-label::before{background:var(--cyan);border-color:var(--cyan);}
+
+  .specs-status{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    margin-top:18px;padding-top:16px;border-top:1px dashed var(--rule-strong);
+  }
+  .specs-status .status-text{
+    font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.04em;color:var(--ink-soft);
+  }
+  .specs-status .status-text strong{color:var(--ink);}
+  .specs-clear{
+    font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--magenta);border:1px solid var(--magenta);border-radius:var(--radius);
+    padding:6px 10px;background:transparent;flex-shrink:0;
+  }
+  .specs-clear:hover{background:var(--magenta);color:var(--paper);}
+  .specs-clear[hidden]{display:none;}
+
+  .modal-empty{
+    display:none;text-align:center;padding:34px 16px;border:1.5px dashed var(--rule-strong);
+    border-radius:var(--radius);margin-bottom:28px;
+  }
+  .modal-empty.show{display:block;}
+  .modal-empty p{font-size:13.5px;color:var(--ink-soft);}
+  .modal-empty p.emoji-note{margin-top:6px;font-size:12.5px;}
+
+  .order-this{
+    display:none;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    background:var(--ink);border-radius:var(--radius);padding:14px 18px;margin-bottom:24px;
+  }
+  .order-this.show{display:flex;}
+  .order-this .order-info{font-size:12.5px;color:rgba(243,239,230,.8);}
+  .order-this .order-info strong{
+    display:block;color:var(--paper);font-size:14.5px;font-weight:700;margin-bottom:2px;
+  }
+  .order-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0;}
+  .order-this .order-btn{
+    display:inline-flex;align-items:center;gap:8px;flex-shrink:0;white-space:nowrap;
+    font-weight:700;font-size:13px;padding:10px 18px;border-radius:999px;
+    transition:transform .15s ease,background .15s ease,border-color .15s ease;
+  }
+  .order-this .order-btn.btn-wa{background:var(--cyan);color:var(--ink);}
+  .order-this .order-btn.btn-wa:hover{background:var(--paper);transform:translateY(-1px);}
+  .order-this .order-btn.btn-site{background:transparent;color:var(--paper);border:1.5px solid rgba(243,239,230,.5);}
+  .order-this .order-btn.btn-site:hover{border-color:var(--paper);background:rgba(243,239,230,.08);transform:translateY(-1px);}
+
   @media (max-width:720px){
     .modal-grid{grid-template-columns:repeat(2,1fr);}
     .modal-box{padding:26px 18px;}
+    .modal-specs .specs-cols{grid-template-columns:1fr;gap:22px;}
   }
+
 
   /* ================= TESTIMONIALS ================= */
   .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -585,6 +830,20 @@
 </head>
 <body>
 
+<!-- ================= PAGE LOADER ================= -->
+<div class="loader" id="pageLoader" aria-hidden="true">
+  <div class="loader-mark">
+    <svg class="lm-c" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    <svg class="lm-m" viewBox="0 0 32 32"><line x1="16" y1="0" x2="16" y2="32" stroke="currentColor" stroke-width="1.6"/></svg>
+    <svg class="lm-y" viewBox="0 0 32 32"><line x1="0" y1="16" x2="32" y2="16" stroke="currentColor" stroke-width="1.6"/></svg>
+    <svg class="lm-k" viewBox="0 0 32 32"><circle cx="16" cy="16" r="3" fill="currentColor"/></svg>
+    <span class="loader-label mono">Star Graphic</span>
+  </div>
+</div>
+
+<!-- ================= SCROLL PROGRESS ================= -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
 <!-- ================= HEADER ================= -->
 <header>
   <nav class="nav">
@@ -607,6 +866,10 @@
       <li><a href="#contact">Contact</a></li>
       <li><a class="btn btn-primary" href="https://wa.me/917666960995?text=Hi%20Star%20Graphic%2C%20I%27d%20like%20a%20quote" target="_blank" rel="noopener">Chat on WhatsApp</a></li>
     </ul>
+    <button class="cart-btn" id="cartBtn" aria-label="View cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="21" height="21"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      <span class="cart-badge" id="cartBadge" hidden>0</span>
+    </button>
     <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
       <span></span>
     </button>
@@ -994,13 +1257,140 @@
       <h3 id="modalTitle">Category</h3>
       <p id="modalDesc"></p>
     </div>
+    <div class="modal-specs" id="modalSpecs">
+      <p class="specs-title" id="modalSpecsTitle"></p>
+      <p class="specs-hint">Click a GSM and a Finish below — only matching samples will show.</p>
+      <div class="specs-cols" id="modalSpecsCols"></div>
+      <div class="specs-status">
+        <p class="status-text" id="specsStatusText">Showing <strong>all designs</strong></p>
+        <button class="specs-clear" id="specsClear" hidden>Clear filters</button>
+      </div>
+    </div>
     <div class="modal-grid" id="modalGrid"></div>
+    <div class="modal-empty" id="modalEmpty">
+      <p>No sample matches that exact GSM + Finish combination yet.</p>
+      <p class="emoji-note">Message us on WhatsApp — we can make this exact combo for you.</p>
+    </div>
+    <div class="order-this" id="orderThis">
+      <p class="order-info">Selected combination<strong id="orderThisLabel"></strong></p>
+      <div class="order-actions">
+        <button type="button" class="order-btn btn-site" id="orderThisSiteBtn">Order via Website</button>
+        <a class="order-btn btn-wa" id="orderThisBtn" target="_blank" rel="noopener">Order via WhatsApp →</a>
+      </div>
+    </div>
     <p class="modal-note">These are placeholder tiles — swap in your real product photos here once ready, so customers see actual finished designs.</p>
     <a class="btn btn-primary" id="modalWhatsapp" target="_blank" rel="noopener">Enquire About This — WhatsApp →</a>
   </div>
 </div>
 
+<!-- ================= CART DRAWER ================= -->
+<div class="modal-overlay" id="cartModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <button class="modal-close" id="cartClose" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <div class="eyebrow"><svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>Your Order</div>
+      <h3 id="cartTitle">Cart</h3>
+      <p>Review what you've selected, then proceed to payment.</p>
+    </div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="cart-empty" id="cartEmpty">Your cart is empty. Browse a category and pick a GSM / finish combo to add an order here.</div>
+    <p class="cart-note">Final pricing is confirmed via WhatsApp before you pay — the amount isn't fixed on this page.</p>
+    <button type="button" class="btn btn-primary" id="cartCheckoutBtn" style="justify-content:center;width:100%;">Proceed to Payment →</button>
+  </div>
+</div>
+
+<!-- ================= CHECKOUT / PAYMENT MODAL ================= -->
+<div class="modal-overlay" id="checkoutModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <button class="modal-close" id="checkoutClose" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <div class="eyebrow"><svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>Checkout</div>
+      <h3 id="checkoutTitle">Complete Your Order</h3>
+      <p>Enter your details, choose a payment method, then confirm — we'll verify on WhatsApp.</p>
+    </div>
+
+    <div class="checkout-summary" id="checkoutSummary"></div>
+
+    <div class="checkout-form">
+      <div class="form-row-2">
+        <div>
+          <label for="coName">Your Name</label>
+          <input type="text" id="coName" placeholder="Full name">
+        </div>
+        <div>
+          <label for="coPhone">Phone Number</label>
+          <input type="tel" id="coPhone" placeholder="10-digit mobile number">
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-tabs" id="payTabs">
+      <button type="button" class="pay-tab active" data-pay="upi">UPI</button>
+      <button type="button" class="pay-tab" data-pay="bank">Bank Transfer</button>
+      <button type="button" class="pay-tab" data-pay="qr">Scan QR</button>
+    </div>
+
+    <div class="pay-panel active" id="payUpi">
+      <div class="pay-box">
+        <h5>Pay via any UPI app</h5>
+        <div class="pay-row">
+          <span class="pr-label">UPI ID</span>
+          <span class="pr-value" id="upiIdText">stargraphic@upi</span>
+          <button type="button" class="pay-copy" data-copy="upiIdText">Copy</button>
+        </div>
+        <div class="pay-row">
+          <span class="pr-label">Payee Name</span>
+          <span class="pr-value">Star Graphic</span>
+        </div>
+        <p class="pay-hint">Tap below to open your UPI app directly (GPay / PhonePe / Paytm) — works on mobile.</p>
+      </div>
+      <a class="btn btn-ghost" id="upiAppBtn" style="justify-content:center;width:100%;">Open UPI App →</a>
+    </div>
+
+    <div class="pay-panel" id="payBank">
+      <div class="pay-box">
+        <h5>Bank Account Details</h5>
+        <div class="pay-row">
+          <span class="pr-label">Account Name</span>
+          <span class="pr-value" id="bankNameText">Star Graphic</span>
+          <button type="button" class="pay-copy" data-copy="bankNameText">Copy</button>
+        </div>
+        <div class="pay-row">
+          <span class="pr-label">Account Number</span>
+          <span class="pr-value" id="bankAccText">XXXXXXXXXXXX1234</span>
+          <button type="button" class="pay-copy" data-copy="bankAccText">Copy</button>
+        </div>
+        <div class="pay-row">
+          <span class="pr-label">IFSC Code</span>
+          <span class="pr-value" id="bankIfscText">XXXX0001234</span>
+          <button type="button" class="pay-copy" data-copy="bankIfscText">Copy</button>
+        </div>
+        <div class="pay-row">
+          <span class="pr-label">Bank &amp; Branch</span>
+          <span class="pr-value" id="bankBranchText">Sample Bank, Mumbra</span>
+          <button type="button" class="pay-copy" data-copy="bankBranchText">Copy</button>
+        </div>
+        <p class="pay-hint">Transfer via NEFT / IMPS / RTGS from your bank app, then confirm below.</p>
+      </div>
+    </div>
+
+    <div class="pay-panel" id="payQr">
+      <div class="pay-box">
+        <h5>Scan to Pay</h5>
+        <div class="qr-wrap">
+          <img id="qrImg" src="" alt="UPI QR code">
+          <p>Scan this QR with any UPI app to pay Star Graphic directly. Amount isn't pre-filled — enter it manually after confirming your quote on WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="confirm-btn" id="confirmOrderBtn" disabled>I've Paid — Confirm via WhatsApp →</button>
+    <p class="cart-note" style="border-top:none;padding-top:10px;">Enter your name and phone number above to enable this button.</p>
+  </div>
+</div>
+
 <!-- ================= TESTIMONIALS ================= -->
+
 <section class="section" style="padding-top:0;">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1159,6 +1549,76 @@
     burger.setAttribute('aria-expanded', 'false');
   }));
 
+  // page loader — hold just long enough for the registration marks to settle
+  (function () {
+    const loader = document.getElementById('pageLoader');
+    if (!loader) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const minDisplay = reduceMotion ? 0 : 650;
+    const start = Date.now();
+    function hide() {
+      const wait = Math.max(0, minDisplay - (Date.now() - start));
+      setTimeout(() => {
+        loader.classList.add('is-hidden');
+        setTimeout(() => loader.remove(), 550);
+      }, wait);
+    }
+    if (document.readyState === 'complete') hide();
+    else window.addEventListener('load', hide);
+    setTimeout(hide, 2200); // safety net so it never hangs
+  })();
+
+  // scroll progress bar (cyan → magenta → yellow, like a colour pass on press)
+  (function () {
+    const bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    function update() {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = max > 0 ? `${(scrolled / max) * 100}%` : '0%';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
+  // count-up numbers in the stats strip, once visible
+  (function () {
+    const stats = document.querySelectorAll('.stat .num');
+    if (!stats.length) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function animate(el) {
+      const raw = el.textContent.trim();
+      const match = raw.match(/([\d,]+)/);
+      if (!match || reduceMotion) return;
+      const target = parseInt(match[1].replace(/,/g, ''), 10);
+      const prefix = raw.slice(0, match.index);
+      const suffix = raw.slice(match.index + match[1].length);
+      const dur = 1100;
+      const t0 = performance.now();
+      function frame(now) {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = prefix + val.toLocaleString('en-IN') + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    if ('IntersectionObserver' in window) {
+      const statIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animate(entry.target);
+            statIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.6 });
+      stats.forEach(el => statIo.observe(el));
+    }
+  })();
+
   // scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -1180,14 +1640,310 @@
 
   // ---------- category sample modal ----------
   const CATEGORY_DATA = {
-    "Visiting Cards": { css: "c1", desc: "A look at recent visiting card designs — minimal, bold and premium finish layouts.", wa: "visiting card" },
-    "Wedding Cards":  { css: "c2", desc: "Designer invite layouts — from classic single-card prints to premium boxed sets.", wa: "wedding card" },
-    "Flex Banners":   { css: "c3", desc: "Outdoor flex banners printed for shops, events and hoardings in any size.", wa: "flex banner" },
-    "T-Shirt Printing": { css: "c4", desc: "Team jerseys and event t-shirts printed with DTF, vinyl and sublimation.", wa: "t-shirt printing" },
-    "Name Plates":    { css: "c5", desc: "Acrylic, steel and wooden name plates for homes, offices and shops.", wa: "name plate" },
-    "Vinyl & Stickers": { css: "c6", desc: "Cut vinyl, decals, labels and vehicle graphics in custom shapes and sizes.", wa: "vinyl and stickers" },
-    "Caps":           { css: "c7", desc: "Embroidered and printed caps made for teams, staff uniforms and events.", wa: "caps" },
-    "Bags":           { css: "c8", desc: "Non-woven, jute and tote bags branded with your logo and colours.", wa: "bags" }
+    "Visiting Cards": {
+      css: "c1",
+      desc: "A look at recent visiting card designs — minimal, bold and premium finish layouts.",
+      wa: "visiting card",
+      specs: {
+        title: "GSM & Finish Guide",
+        filters: [
+          {
+            key: "gsm",
+            heading: "GSM Choices",
+            options: [
+              { value: "250", label: "250 GSM", desc: "Budget-friendly, thin and flexible; best for temporary use or large-scale handouts." },
+              { value: "300", label: "300 GSM", desc: "Standard professional thickness; sturdy enough for everyday networking without extra lamination." },
+              { value: "350", label: "350 GSM", desc: "Premium heavyweight feel; highly rigid and ideal for matte, glossy or velvet finishes." },
+              { value: "400-500", label: "400–500+ GSM", desc: "Luxury ultra-thick cardstock; used for executive or high-end designer business cards." }
+            ]
+          },
+          {
+            key: "finish",
+            heading: "Common Finishes & Options",
+            options: [
+              { value: "matte", label: "Matte Lamination", desc: "Non-reflective, smooth surface that offers a sophisticated look and readability." },
+              { value: "glossy", label: "Glossy UV Coating", desc: "Shiny finish that makes colors vibrant and protects against fading." },
+              { value: "velvet", label: "Velvet / Soft-Touch", desc: "Ultra-smooth tactile texture that feels luxurious." }
+            ]
+          }
+        ]
+      },
+      // each sample tile tagged with the gsm + finish it represents, used to filter
+      samples: [
+        { gsm: "300",     finish: "matte"  },
+        { gsm: "350",     finish: "glossy" },
+        { gsm: "250",     finish: "matte"  },
+        { gsm: "400-500", finish: "velvet" },
+        { gsm: "300",     finish: "glossy" },
+        { gsm: "350",     finish: "velvet" },
+        { gsm: "250",     finish: "glossy" },
+        { gsm: "400-500", finish: "matte"  }
+      ]
+    },
+    "Wedding Cards": {
+      css: "c2",
+      desc: "Designer invite layouts — from classic single-card prints to premium boxed sets.",
+      wa: "wedding card",
+      specs: {
+        title: "Card Type & Finish Guide",
+        filters: [
+          {
+            key: "type",
+            heading: "Card Type",
+            options: [
+              { value: "single", label: "Single Card",   desc: "Classic single-panel card — clean and traditional, easy to print in bulk." },
+              { value: "boxed",  label: "Boxed Invite",  desc: "Premium boxed invite with insert cards — a designer, gift-like presentation." },
+              { value: "scroll", label: "Scroll Card",   desc: "Scroll-style card tied with ribbon — traditional Indian wedding look." },
+              { value: "laser",  label: "Laser-Cut Card", desc: "Intricate laser-cut patterns for a royal, ornate feel." }
+            ]
+          },
+          {
+            key: "finish",
+            heading: "Finish",
+            options: [
+              { value: "matte",  label: "Matte Lamination", desc: "Soft matte lamination — elegant, non-reflective texture." },
+              { value: "glossy", label: "Glossy UV",         desc: "Glossy UV finish — vibrant colors, festive shine." },
+              { value: "foil",   label: "Foil Stamping",     desc: "Gold or silver metallic highlights for a luxury touch." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { type: "single", finish: "matte"  },
+        { type: "boxed",  finish: "glossy" },
+        { type: "scroll", finish: "foil"   },
+        { type: "laser",  finish: "matte"  },
+        { type: "single", finish: "foil"   },
+        { type: "boxed",  finish: "matte"  },
+        { type: "scroll", finish: "glossy" },
+        { type: "laser",  finish: "glossy" }
+      ]
+    },
+    "Flex Banners": {
+      css: "c3",
+      desc: "Outdoor flex banners printed for shops, events and hoardings in any size.",
+      wa: "flex banner",
+      specs: {
+        title: "Material & Use Guide",
+        filters: [
+          {
+            key: "material",
+            heading: "Material",
+            options: [
+              { value: "vinyl", label: "Vinyl Flex", desc: "Standard vinyl flex — durable, weatherproof, most common for shop banners." },
+              { value: "star",  label: "Star Flex",  desc: "Thicker, extra-sturdy flex — better for large hoardings." },
+              { value: "mesh",  label: "Mesh Flex",  desc: "Wind-permeable mesh — ideal for high-wind spots and building wraps." }
+            ]
+          },
+          {
+            key: "use",
+            heading: "Use Case",
+            options: [
+              { value: "indoor",  label: "Indoor",  desc: "Showroom, office or event backdrop banners." },
+              { value: "outdoor", label: "Outdoor", desc: "Shop fronts, hoardings, weatherproof printing." },
+              { value: "event",   label: "Event",   desc: "Standees, entrance arches, short-term promotional use." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { material: "vinyl", use: "indoor"  },
+        { material: "star",  use: "outdoor" },
+        { material: "mesh",  use: "outdoor" },
+        { material: "vinyl", use: "event"   },
+        { material: "star",  use: "indoor"  },
+        { material: "mesh",  use: "event"   },
+        { material: "vinyl", use: "outdoor" },
+        { material: "star",  use: "event"   }
+      ]
+    },
+    "T-Shirt Printing": {
+      css: "c4",
+      desc: "Team jerseys and event t-shirts printed with DTF, vinyl and sublimation.",
+      wa: "t-shirt printing",
+      specs: {
+        title: "Fabric & Print Method Guide",
+        filters: [
+          {
+            key: "fabric",
+            heading: "Fabric",
+            options: [
+              { value: "cotton", label: "100% Cotton", desc: "Breathable, soft — best for everyday and premium branded tees." },
+              { value: "poly",   label: "Polyester",   desc: "Sweat-wicking, durable — popular for sports jerseys." },
+              { value: "blend",  label: "Cotton-Poly Blend", desc: "Balance of comfort and durability — great for bulk event tees." }
+            ]
+          },
+          {
+            key: "method",
+            heading: "Print Method",
+            options: [
+              { value: "dtf",         label: "DTF Print",    desc: "Direct-to-film — vibrant full-color prints, works on any fabric." },
+              { value: "vinyl",       label: "Vinyl Cut",    desc: "Bold solid-color designs and names/numbers, long-lasting." },
+              { value: "sublimation", label: "Sublimation",  desc: "All-over prints, ideal for polyester jerseys." },
+              { value: "screen",      label: "Screen Print", desc: "Best for bulk orders with 1–3 colors, cost-effective." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { fabric: "cotton", method: "dtf"         },
+        { fabric: "poly",   method: "sublimation" },
+        { fabric: "blend",  method: "screen"      },
+        { fabric: "cotton", method: "vinyl"       },
+        { fabric: "poly",   method: "vinyl"       },
+        { fabric: "blend",  method: "dtf"         },
+        { fabric: "cotton", method: "screen"      },
+        { fabric: "poly",   method: "dtf"         }
+      ]
+    },
+    "Name Plates": {
+      css: "c5",
+      desc: "Acrylic, steel and wooden name plates for homes, offices and shops.",
+      wa: "name plate",
+      specs: {
+        title: "Material & Style Guide",
+        filters: [
+          {
+            key: "material",
+            heading: "Material",
+            options: [
+              { value: "acrylic", label: "Acrylic",         desc: "Modern, lightweight — available in glossy or frosted finishes." },
+              { value: "steel",   label: "Stainless Steel",  desc: "Premium, rust-proof — ideal for office and commercial entrances." },
+              { value: "wood",    label: "Wood",             desc: "Warm, classic look for homes and traditional spaces." }
+            ]
+          },
+          {
+            key: "style",
+            heading: "Style",
+            options: [
+              { value: "engraved", label: "Engraved", desc: "Laser engraved — permanent, sharp detail, no fading over time." },
+              { value: "printed",  label: "UV Printed", desc: "Full-color designs, logos and photos possible." },
+              { value: "backlit",  label: "LED Backlit", desc: "Illuminated name plate for a premium, visible-at-night look." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { material: "acrylic", style: "engraved" },
+        { material: "steel",   style: "printed"  },
+        { material: "wood",    style: "engraved" },
+        { material: "acrylic", style: "backlit"  },
+        { material: "steel",   style: "backlit"  },
+        { material: "wood",    style: "printed"  },
+        { material: "acrylic", style: "printed"  },
+        { material: "steel",   style: "engraved" }
+      ]
+    },
+    "Vinyl & Stickers": {
+      css: "c6",
+      desc: "Cut vinyl, decals, labels and vehicle graphics in custom shapes and sizes.",
+      wa: "vinyl and stickers",
+      specs: {
+        title: "Material & Finish Guide",
+        filters: [
+          {
+            key: "material",
+            heading: "Material",
+            options: [
+              { value: "vinyl",       label: "Standard Vinyl", desc: "Durable, weatherproof — most common for shop and vehicle graphics." },
+              { value: "transparent", label: "Transparent",    desc: "See-through background — great for glass windows and branding." },
+              { value: "reflective",  label: "Reflective",     desc: "High-visibility — ideal for vehicle safety and night-time signage." }
+            ]
+          },
+          {
+            key: "finish",
+            heading: "Finish",
+            options: [
+              { value: "matte",  label: "Matte",  desc: "Non-reflective, subtle premium look." },
+              { value: "glossy", label: "Glossy", desc: "Vibrant, eye-catching colors." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { material: "vinyl",       finish: "matte"  },
+        { material: "transparent", finish: "glossy" },
+        { material: "reflective",  finish: "matte"  },
+        { material: "vinyl",       finish: "glossy" },
+        { material: "transparent", finish: "matte"  },
+        { material: "reflective",  finish: "glossy" },
+        { material: "vinyl",       finish: "matte"  },
+        { material: "transparent", finish: "glossy" }
+      ]
+    },
+    "Caps": {
+      css: "c7",
+      desc: "Embroidered and printed caps made for teams, staff uniforms and events.",
+      wa: "caps",
+      specs: {
+        title: "Fabric & Branding Guide",
+        filters: [
+          {
+            key: "fabric",
+            heading: "Fabric",
+            options: [
+              { value: "cotton", label: "Cotton Twill", desc: "Breathable, structured — classic cap fabric." },
+              { value: "poly",   label: "Polyester",     desc: "Moisture-wicking — common for sports and outdoor team caps." }
+            ]
+          },
+          {
+            key: "branding",
+            heading: "Branding",
+            options: [
+              { value: "embroidery", label: "Embroidered", desc: "Raised, durable finish — premium look for uniforms." },
+              { value: "print",      label: "Printed",     desc: "Flat finish — cost-effective for bulk event caps." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { fabric: "cotton", branding: "embroidery" },
+        { fabric: "poly",   branding: "print"      },
+        { fabric: "cotton", branding: "print"      },
+        { fabric: "poly",   branding: "embroidery" },
+        { fabric: "cotton", branding: "embroidery" },
+        { fabric: "poly",   branding: "print"      },
+        { fabric: "cotton", branding: "print"      },
+        { fabric: "poly",   branding: "embroidery" }
+      ]
+    },
+    "Bags": {
+      css: "c8",
+      desc: "Non-woven, jute and tote bags branded with your logo and colours.",
+      wa: "bags",
+      specs: {
+        title: "Material & Branding Guide",
+        filters: [
+          {
+            key: "material",
+            heading: "Material",
+            options: [
+              { value: "nonwoven", label: "Non-Woven", desc: "Lightweight, budget-friendly — popular for retail giveaway bags." },
+              { value: "jute",     label: "Jute",       desc: "Eco-friendly, rustic texture — great for premium gifting." },
+              { value: "canvas",   label: "Canvas Tote", desc: "Sturdy cotton fabric, reusable — popular for branded merchandise." }
+            ]
+          },
+          {
+            key: "branding",
+            heading: "Branding",
+            options: [
+              { value: "screen",     label: "Screen Printed", desc: "Cost-effective, vibrant for bulk orders." },
+              { value: "embroidery", label: "Embroidered",     desc: "Premium raised finish, durable." }
+            ]
+          }
+        ]
+      },
+      samples: [
+        { material: "nonwoven", branding: "screen"     },
+        { material: "jute",     branding: "embroidery" },
+        { material: "canvas",   branding: "screen"     },
+        { material: "nonwoven", branding: "embroidery" },
+        { material: "jute",     branding: "screen"     },
+        { material: "canvas",   branding: "embroidery" },
+        { material: "nonwoven", branding: "screen"     },
+        { material: "jute",     branding: "embroidery" }
+      ]
+    }
   };
   const SAMPLE_COUNT = 8;
 
@@ -1195,19 +1951,43 @@
   const modalTitle = document.getElementById('modalTitle');
   const modalDesc = document.getElementById('modalDesc');
   const modalGrid = document.getElementById('modalGrid');
+  const modalEmpty = document.getElementById('modalEmpty');
   const modalWhatsapp = document.getElementById('modalWhatsapp');
   const modalClose = document.getElementById('modalClose');
+  const modalSpecs = document.getElementById('modalSpecs');
+  const modalSpecsTitle = document.getElementById('modalSpecsTitle');
+  const modalSpecsCols = document.getElementById('modalSpecsCols');
+  const specsStatusText = document.getElementById('specsStatusText');
+  const specsClear = document.getElementById('specsClear');
+  const orderThis = document.getElementById('orderThis');
+  const orderThisLabel = document.getElementById('orderThisLabel');
+  const orderThisBtn = document.getElementById('orderThisBtn');
+  const orderThisSiteBtn = document.getElementById('orderThisSiteBtn');
   let lastFocused = null;
+  let activeCategory = null;
+  let activeFilters = {}; // e.g. { gsm: "350", finish: "glossy" }
 
-  function openCategoryModal(catName) {
+  function labelFor(catName, key, value) {
     const data = CATEGORY_DATA[catName];
-    if (!data) return;
-    modalTitle.textContent = catName;
-    modalDesc.textContent = data.desc;
-    modalWhatsapp.href = `https://wa.me/917666960995?text=${encodeURIComponent('Hi, I saw your ' + data.wa + ' designs and I\'m interested. Please share more details.')}`;
+    const group = data.specs.filters.find(f => f.key === key);
+    const opt = group.options.find(o => o.value === value);
+    return opt ? opt.label : value;
+  }
 
+  function renderGrid() {
+    const data = CATEGORY_DATA[activeCategory];
     modalGrid.innerHTML = '';
+
+    let visibleCount = 0;
     for (let i = 1; i <= SAMPLE_COUNT; i++) {
+      const sample = data.samples ? data.samples[i - 1] : null;
+      let matches = true;
+      if (sample) {
+        matches = Object.keys(activeFilters).every(key => sample[key] === activeFilters[key]);
+      }
+      if (!matches) continue;
+
+      visibleCount++;
       const tile = document.createElement('div');
       tile.className = `modal-tile ${data.css}`;
       const label = document.createElement('span');
@@ -1215,6 +1995,96 @@
       tile.appendChild(label);
       modalGrid.appendChild(tile);
     }
+
+    const hasFilters = Object.keys(activeFilters).length > 0;
+    if (visibleCount === 0) {
+      modalGrid.style.display = 'none';
+      modalEmpty.classList.add('show');
+    } else {
+      modalGrid.style.display = '';
+      modalEmpty.classList.remove('show');
+    }
+
+    // update status line + clear button
+    if (data.specs) {
+      if (!hasFilters) {
+        specsStatusText.innerHTML = `Showing <strong>all designs</strong>`;
+        specsClear.hidden = true;
+      } else {
+        const parts = Object.keys(activeFilters).map(key => labelFor(activeCategory, key, activeFilters[key]));
+        specsStatusText.innerHTML = `Showing <strong>${parts.join(' + ')}</strong> (${visibleCount} match${visibleCount === 1 ? '' : 'es'})`;
+        specsClear.hidden = false;
+      }
+
+      // "Order This" buttons — appear once every filter group is chosen and it's a real, available combo
+      const allGroupsChosen = data.specs.filters.every(f => activeFilters[f.key]);
+      if (allGroupsChosen && visibleCount > 0) {
+        const comboParts = data.specs.filters.map(f => labelFor(activeCategory, f.key, activeFilters[f.key]));
+        const comboLabel = comboParts.join(' + ');
+        orderThisLabel.textContent = comboLabel;
+        orderThisBtn.href = `https://wa.me/917666960995?text=${encodeURIComponent('Hi, I want to order ' + activeCategory + ' — ' + comboLabel + '. Please share pricing and process.')}`;
+        orderThis.dataset.combo = comboLabel;
+        orderThis.classList.add('show');
+      } else {
+        orderThis.classList.remove('show');
+      }
+    }
+  }
+
+  function renderFilters() {
+    const data = CATEGORY_DATA[activeCategory];
+    modalSpecsCols.innerHTML = '';
+    if (!data.specs) {
+      modalSpecs.classList.remove('show');
+      return;
+    }
+    modalSpecsTitle.textContent = data.specs.title;
+    data.specs.filters.forEach(group => {
+      const colEl = document.createElement('div');
+      const h4 = document.createElement('h4');
+      h4.textContent = group.heading;
+      colEl.appendChild(h4);
+
+      const chipsWrap = document.createElement('div');
+      chipsWrap.className = 'filter-chips';
+
+      group.options.forEach(opt => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'filter-chip';
+        chip.title = opt.desc;
+        if (activeFilters[group.key] === opt.value) chip.classList.add('active');
+        chip.innerHTML = `<span class="chip-label">${opt.label}</span>`;
+        chip.addEventListener('click', () => {
+          if (activeFilters[group.key] === opt.value) {
+            delete activeFilters[group.key]; // toggle off
+          } else {
+            activeFilters[group.key] = opt.value;
+          }
+          renderFilters();
+          renderGrid();
+        });
+        chipsWrap.appendChild(chip);
+      });
+
+      colEl.appendChild(chipsWrap);
+      modalSpecsCols.appendChild(colEl);
+    });
+    modalSpecs.classList.add('show');
+  }
+
+  function openCategoryModal(catName) {
+    const data = CATEGORY_DATA[catName];
+    if (!data) return;
+    activeCategory = catName;
+    activeFilters = {};
+
+    modalTitle.textContent = catName;
+    modalDesc.textContent = data.desc;
+    modalWhatsapp.href = `https://wa.me/917666960995?text=${encodeURIComponent('Hi, I saw your ' + data.wa + ' designs and I\'m interested. Please share more details.')}`;
+
+    renderFilters();
+    renderGrid();
 
     lastFocused = document.activeElement;
     modal.classList.add('open');
@@ -1230,6 +2100,121 @@
     if (lastFocused) lastFocused.focus();
   }
 
+  specsClear.addEventListener('click', () => {
+    activeFilters = {};
+    renderFilters();
+    renderGrid();
+  });
+
+  // maps modal category names to the <select> option text in the on-site enquiry form
+  const CATEGORY_TO_PRODUCT_OPTION = {
+    "Visiting Cards": "Visiting Cards",
+    "Wedding Cards": "Wedding Cards",
+    "Flex Banners": "Flex Banners",
+    "T-Shirt Printing": "T-Shirt / Sports Printing",
+    "Name Plates": "Name Plates",
+    "Vinyl & Stickers": "Vinyl & Stickers",
+    "Caps": "Caps",
+    "Bags": "Bags"
+  };
+
+  // ============ CART ============
+  const CART_KEY = 'sg_cart_v1';
+  function loadCart() {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveCart(cart) {
+    try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
+  }
+  let CART = loadCart();
+
+  const cartBtn = document.getElementById('cartBtn');
+  const cartBadge = document.getElementById('cartBadge');
+  const cartModal = document.getElementById('cartModal');
+  const cartClose = document.getElementById('cartClose');
+  const cartList = document.getElementById('cartList');
+  const cartEmpty = document.getElementById('cartEmpty');
+  const cartCheckoutBtn = document.getElementById('cartCheckoutBtn');
+
+  function updateCartBadge() {
+    if (CART.length > 0) {
+      cartBadge.textContent = CART.length;
+      cartBadge.hidden = false;
+    } else {
+      cartBadge.hidden = true;
+    }
+  }
+
+  function addToCart(category, combo) {
+    CART.push({ id: Date.now() + Math.random().toString(36).slice(2), category, combo });
+    saveCart(CART);
+    updateCartBadge();
+  }
+
+  function removeFromCart(id) {
+    CART = CART.filter(item => item.id !== id);
+    saveCart(CART);
+    updateCartBadge();
+    renderCart();
+  }
+
+  function renderCart() {
+    cartList.innerHTML = '';
+    if (CART.length === 0) {
+      cartEmpty.classList.add('show');
+      cartList.style.display = 'none';
+      cartCheckoutBtn.disabled = true;
+      cartCheckoutBtn.style.opacity = '.5';
+    } else {
+      cartEmpty.classList.remove('show');
+      cartList.style.display = 'flex';
+      cartCheckoutBtn.disabled = false;
+      cartCheckoutBtn.style.opacity = '1';
+      CART.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `
+          <div class="ci-info">
+            <div class="ci-cat">${item.category}</div>
+            <div class="ci-combo">${item.combo}</div>
+          </div>
+          <button type="button" class="ci-remove" aria-label="Remove item">&times;</button>
+        `;
+        row.querySelector('.ci-remove').addEventListener('click', () => removeFromCart(item.id));
+        cartList.appendChild(row);
+      });
+    }
+  }
+
+  function openCartModal() {
+    renderCart();
+    cartModal.classList.add('open');
+    cartModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCartModal() {
+    cartModal.classList.remove('open');
+    cartModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  cartBtn.addEventListener('click', openCartModal);
+  cartClose.addEventListener('click', closeCartModal);
+  cartModal.addEventListener('click', (e) => { if (e.target === cartModal) closeCartModal(); });
+
+  updateCartBadge();
+
+  // ---- "Order via Website" now adds to cart and opens the cart drawer ----
+  orderThisSiteBtn.addEventListener('click', () => {
+    const combo = orderThis.dataset.combo || '';
+    addToCart(activeCategory, combo);
+    closeCategoryModal();
+    openCartModal();
+  });
+
   document.querySelectorAll('[data-cat]').forEach(card => {
     card.addEventListener('click', () => openCategoryModal(card.dataset.cat));
   });
@@ -1237,7 +2222,113 @@
   modal.addEventListener('click', (e) => { if (e.target === modal) closeCategoryModal(); });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('open')) closeCategoryModal();
+    if (e.key === 'Escape' && cartModal.classList.contains('open')) closeCartModal();
+    if (e.key === 'Escape' && checkoutModal.classList.contains('open')) closeCheckoutModal();
   });
+
+  // ============ CHECKOUT / PAYMENT ============
+  const PAYMENT_INFO = {
+    upiId: "stargraphic@upi",          // TODO: replace with your real UPI ID
+    payeeName: "Star Graphic",
+    bankAccountName: "Star Graphic",    // TODO: replace with real bank details
+    bankAccountNumber: "XXXXXXXXXXXX1234",
+    bankIfsc: "XXXX0001234",
+    bankBranch: "Sample Bank, Mumbra"
+  };
+
+  const checkoutModal = document.getElementById('checkoutModal');
+  const checkoutClose = document.getElementById('checkoutClose');
+  const checkoutSummary = document.getElementById('checkoutSummary');
+  const coName = document.getElementById('coName');
+  const coPhone = document.getElementById('coPhone');
+  const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+  const payTabs = document.getElementById('payTabs');
+  const upiAppBtn = document.getElementById('upiAppBtn');
+  const qrImg = document.getElementById('qrImg');
+
+  // populate static payment info fields
+  document.getElementById('upiIdText').textContent = PAYMENT_INFO.upiId;
+  document.getElementById('bankNameText').textContent = PAYMENT_INFO.bankAccountName;
+  document.getElementById('bankAccText').textContent = PAYMENT_INFO.bankAccountNumber;
+  document.getElementById('bankIfscText').textContent = PAYMENT_INFO.bankIfsc;
+  document.getElementById('bankBranchText').textContent = PAYMENT_INFO.bankBranch;
+
+  const upiLink = `upi://pay?pa=${encodeURIComponent(PAYMENT_INFO.upiId)}&pn=${encodeURIComponent(PAYMENT_INFO.payeeName)}&cu=INR`;
+  upiAppBtn.href = upiLink;
+  qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
+
+  function renderCheckoutSummary() {
+    checkoutSummary.innerHTML = '';
+    CART.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'cs-item';
+      row.innerHTML = `<span>${item.category}</span><strong>${item.combo}</strong>`;
+      checkoutSummary.appendChild(row);
+    });
+  }
+
+  function openCheckoutModal() {
+    if (CART.length === 0) return;
+    renderCheckoutSummary();
+    closeCartModal();
+    checkoutModal.classList.add('open');
+    checkoutModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCheckoutModal() {
+    checkoutModal.classList.remove('open');
+    checkoutModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  cartCheckoutBtn.addEventListener('click', openCheckoutModal);
+  checkoutClose.addEventListener('click', closeCheckoutModal);
+  checkoutModal.addEventListener('click', (e) => { if (e.target === checkoutModal) closeCheckoutModal(); });
+
+  // payment method tabs
+  payTabs.querySelectorAll('.pay-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      payTabs.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('pay' + tab.dataset.pay.charAt(0).toUpperCase() + tab.dataset.pay.slice(1)).classList.add('active');
+    });
+  });
+
+  // copy-to-clipboard for payment details
+  document.querySelectorAll('.pay-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = document.getElementById(btn.dataset.copy).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      }).catch(() => {});
+    });
+  });
+
+  // enable confirm button once name + phone are filled
+  function checkConfirmEnabled() {
+    const nameOk = coName.value.trim().length > 1;
+    const phoneOk = coPhone.value.trim().length >= 10;
+    confirmOrderBtn.disabled = !(nameOk && phoneOk);
+  }
+  coName.addEventListener('input', checkConfirmEnabled);
+  coPhone.addEventListener('input', checkConfirmEnabled);
+
+  confirmOrderBtn.addEventListener('click', () => {
+    const activeTab = payTabs.querySelector('.pay-tab.active').dataset.pay;
+    const payLabel = activeTab === 'upi' ? 'UPI' : activeTab === 'bank' ? 'Bank Transfer' : 'QR Code';
+    const itemsText = CART.map(item => `${item.category} — ${item.combo}`).join('%0A');
+    const msg = `Hi Star Graphic, I've completed payment for my order.%0AName: ${encodeURIComponent(coName.value.trim())}%0APhone: ${encodeURIComponent(coPhone.value.trim())}%0APayment Method: ${payLabel}%0A%0AOrder:%0A${itemsText}%0A%0APlease confirm and share the next steps.`;
+    window.open(`https://wa.me/917666960995?text=${msg}`, '_blank');
+    // clear cart after order confirmation
+    CART = [];
+    saveCart(CART);
+    updateCartBadge();
+    closeCheckoutModal();
+  });
+
 
   // ---------- carousel arrow scroll ----------
   function wireCarousel(trackId, prevId, nextId) {
