@@ -16,16 +16,10 @@
     --cyan:#00AEEF;
     --magenta:#E4007C;
     --yellow:#FFCC00;
-    --rule: rgba(24,24,27,.12);
-    --rule-strong: rgba(24,24,27,.22);
-    --radius: 4px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
+    --rule: rgba(24,24,27,.16);
+    --rule-strong: rgba(24,24,27,.32);
+    --radius: 3px;
     --maxw: 1180px;
-    --shadow-sm: 0 2px 6px rgba(24,24,27,.06), 0 1px 2px rgba(24,24,27,.05);
-    --shadow-md: 0 10px 24px rgba(24,24,27,.08), 0 2px 8px rgba(24,24,27,.05);
-    --shadow-lg: 0 24px 56px rgba(24,24,27,.14), 0 6px 18px rgba(24,24,27,.08);
-    --shadow-ink: 0 18px 40px rgba(24,24,27,.28);
   }
 
   *{box-sizing:border-box;}
@@ -36,15 +30,13 @@
     color:var(--ink);
     font-family:'Inter',sans-serif;
     font-size:16px;
-    line-height:1.6;
-    letter-spacing:-.005em;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
   }
   img,svg{display:block;max-width:100%;}
   a{color:inherit;text-decoration:none;}
   ul{margin:0;padding:0;list-style:none;}
-  h1,h2,h3{margin:0;font-family:'Anton',sans-serif;font-weight:400;letter-spacing:0;text-transform:uppercase;}
+  h1,h2,h3{margin:0;font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.01em;text-transform:uppercase;}
   p{margin:0;}
   button{font-family:inherit;cursor:pointer;}
   .mono{font-family:'IBM Plex Mono',monospace;}
@@ -76,16 +68,13 @@
   /* ================= HEADER ================= */
   header{
     position:sticky;top:0;z-index:50;
-    background:rgba(243,239,230,.86);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
+    background:rgba(243,239,230,.92);
+    backdrop-filter:blur(6px);
     border-bottom:1px solid var(--rule);
-    box-shadow:0 1px 0 rgba(24,24,27,.02), 0 8px 24px rgba(24,24,27,.03);
-    transition:box-shadow .3s ease;
   }
   .nav{
     display:flex;align-items:center;justify-content:space-between;
-    padding:20px 24px;
+    padding:16px 24px;
     max-width:var(--maxw);margin:0 auto;
   }
   .brand{display:flex;align-items:center;gap:10px;}
@@ -111,15 +100,15 @@
   .btn{
     display:inline-flex;align-items:center;gap:8px;
     font-weight:700;font-size:14px;
-    padding:13px 24px;border-radius:var(--radius-md);
+    padding:11px 20px;border-radius:var(--radius);
     border:1.5px solid var(--ink);
-    transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background .2s ease, color .2s ease;
+    transition:transform .2s ease, background .2s ease, color .2s ease;
     white-space:nowrap;
   }
-  .btn-primary{background:var(--ink);color:var(--paper);box-shadow:var(--shadow-sm);}
-  .btn-primary:hover{background:var(--magenta);border-color:var(--magenta);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .btn-primary{background:var(--ink);color:var(--paper);}
+  .btn-primary:hover{background:var(--magenta);border-color:var(--magenta);transform:translateY(-2px);}
   .btn-ghost{background:transparent;color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px);box-shadow:var(--shadow-md);}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px);}
   .btn:focus-visible, a:focus-visible, button:focus-visible{outline:3px solid var(--cyan);outline-offset:2px;}
 
   .burger{display:none;background:none;border:1.5px solid var(--ink);border-radius:var(--radius);width:42px;height:38px;align-items:center;justify-content:center;}
@@ -156,10 +145,10 @@
   }
 
   .hero-sub{
-    margin-top:24px;max-width:46ch;
-    font-size:17.5px;line-height:1.65;color:var(--ink-soft);
+    margin-top:22px;max-width:46ch;
+    font-size:17px;color:var(--ink-soft);
   }
-  .hero-cta{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+  .hero-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
 
   .hero-art{
     position:relative;aspect-ratio:1/1;max-width:380px;justify-self:end;
@@ -189,7 +178,6 @@
     aspect-ratio:2200/800;
     overflow:hidden;
     background:var(--ink);
-    box-shadow:var(--shadow-lg);
   }
   .hero-slider .slide{
     position:absolute;inset:0;opacity:0;z-index:1;pointer-events:none;
@@ -262,19 +250,19 @@
   .ticker span:not(.dot):hover{color:var(--yellow);}
 
   /* ================= STATS ================= */
-  .stats{padding:58px 0;border-bottom:1px solid var(--rule);}
+  .stats{padding:52px 0;border-bottom:1px solid var(--rule);}
   .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
-  .stat{padding:0 24px;border-left:1px solid var(--rule);}
+  .stat{padding:0 20px;border-left:1px solid var(--rule);}
   .stat:first-child{border-left:none;padding-left:0;}
-  .stat .num{font-family:'Anton';font-size:clamp(30px,4vw,44px);color:var(--ink);letter-spacing:-.01em;}
+  .stat .num{font-family:'Anton';font-size:clamp(30px,4vw,44px);color:var(--ink);}
   .stat .num em{font-style:normal;color:var(--magenta);}
-  .stat .label{font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px;}
+  .stat .label{font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px;}
 
   /* ================= SECTION HEAD ================= */
-  .section{padding:108px 0;}
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:52px;flex-wrap:wrap;}
-  .section-head h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.01em;}
-  .section-head .desc{max-width:42ch;color:var(--ink-soft);font-size:15.5px;line-height:1.65;}
+  .section{padding:88px 0;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(28px,4vw,42px);}
+  .section-head .desc{max-width:42ch;color:var(--ink-soft);font-size:15px;}
 
   /* ================= PRODUCTS ================= */
   .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -318,11 +306,9 @@
   .deals{padding:60px 0 12px;}
   .deals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
   .deal-card{
-    background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius-md);
-    padding:24px;box-shadow:var(--shadow-sm);
-    transition:box-shadow .3s ease, transform .3s ease;
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);
+    padding:22px;
   }
-  .deal-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
   .deal-card h3{
     font-family:'Inter',sans-serif;font-weight:800;text-transform:none;
     font-size:15px;line-height:1.3;margin-bottom:16px;letter-spacing:0;
@@ -346,20 +332,23 @@
   }
   .prod-card{
     position:relative;background:var(--paper-2);
-    border:1px solid var(--rule);
-    border-radius:var(--radius-lg);
-    padding:34px 28px 28px;
-    box-shadow:var(--shadow-sm);
-    transition:transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease, border-color .3s ease;
+    border:1px dashed var(--rule-strong);
+    border-radius:var(--radius);
+    padding:28px 24px 24px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
-  .prod-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(24,24,27,.08);}
-  .prod-card .corner{display:none;}
-  .prod-icon{width:42px;height:42px;color:var(--ink);margin-bottom:20px;}
+  .prod-card:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(24,24,27,.14);border-color:var(--ink);}
+  .prod-card .corner{position:absolute;width:12px;height:12px;color:var(--ink-soft);opacity:.55;}
+  .prod-card .corner.tl{top:8px;left:8px;}
+  .prod-card .corner.tr{top:8px;right:8px;}
+  .prod-card .corner.bl{bottom:8px;left:8px;}
+  .prod-card .corner.br{bottom:8px;right:8px;}
+  .prod-icon{width:42px;height:42px;color:var(--ink);margin-bottom:18px;}
   .prod-card:nth-child(3n+1) .prod-icon{color:var(--cyan);}
   .prod-card:nth-child(3n+2) .prod-icon{color:var(--magenta);}
   .prod-card:nth-child(3n+3) .prod-icon{color:#B98A00;}
-  .prod-card h3{font-size:19px;margin-bottom:10px;letter-spacing:-.005em;}
-  .prod-card p{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:20px;min-height:42px;}
+  .prod-card h3{font-size:19px;margin-bottom:8px;}
+  .prod-card p{font-size:14px;color:var(--ink-soft);margin-bottom:18px;min-height:42px;}
   .prod-link{
     display:inline-flex;align-items:center;gap:6px;
     font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.06em;text-transform:uppercase;
@@ -373,7 +362,7 @@
   .process .section-head h2{color:var(--paper);}
   .process .section-head .desc{color:rgba(243,239,230,.65);}
   .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
-  .proc-card{padding:28px 22px;border-top:2px solid var(--yellow);background:rgba(243,239,230,.03);border-radius:0 0 var(--radius-md) var(--radius-md);}
+  .proc-card{padding:26px 20px;border-top:2px solid var(--yellow);}
   .proc-card .idx{font-family:'IBM Plex Mono';font-size:13px;color:var(--yellow);margin-bottom:14px;}
   .proc-card h3{font-size:18px;text-transform:none;font-family:'Inter';font-weight:700;margin-bottom:10px;}
   .proc-card p{font-size:14px;color:rgba(243,239,230,.7);}
@@ -386,11 +375,11 @@
   .why-card p{font-size:14px;color:var(--ink-soft);}
 
   /* ================= GALLERY (work samples) ================= */
-  .work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
   .work-card{
-    aspect-ratio:4/3;border-radius:var(--radius-md);position:relative;overflow:hidden;
+    aspect-ratio:4/3;border-radius:var(--radius);position:relative;overflow:hidden;
     display:flex;align-items:flex-end;padding:14px;
-    border:none;box-shadow:var(--shadow-sm);
+    border:1px solid var(--rule-strong);
   }
   .work-card span{
     font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
@@ -405,7 +394,7 @@
   .work-card.c7{background:linear-gradient(135deg,#8c004f,var(--ink));}
   .work-card.c8{background:linear-gradient(135deg,#b98a00,var(--ink));}
   .work-card{cursor:pointer;border:none;text-align:left;font:inherit;transition:transform .25s ease, box-shadow .25s ease;}
-  .work-card:hover, .work-card:focus-visible{transform:translateY(-5px);box-shadow:var(--shadow-lg);}
+  .work-card:hover, .work-card:focus-visible{transform:translateY(-5px);box-shadow:0 16px 30px rgba(24,24,27,.22);}
   .work-card .hint{
     position:absolute;top:12px;right:12px;
     font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.06em;text-transform:uppercase;
@@ -413,6 +402,47 @@
     opacity:0;transition:opacity .2s ease;
   }
   .work-card:hover .hint, .work-card:focus-visible .hint{opacity:1;}
+
+  /* ================= SHOP BY CATEGORY ================= */
+  .shopcat-head{text-align:center;margin-bottom:40px;}
+  .shopcat-head .eyebrow{justify-content:center;}
+  .shopcat-head h2{
+    font-family:'Inter',sans-serif;font-weight:800;text-transform:none;
+    letter-spacing:-.01em;font-size:clamp(26px,3.4vw,36px);
+  }
+  .shopcat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 24px;}
+  .shopcat-item{
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    background:none;border:none;padding:0;cursor:pointer;font:inherit;text-align:center;
+  }
+  .shopcat-img{
+    width:100%;aspect-ratio:1/1;border-radius:10px;
+    display:grid;place-items:center;position:relative;overflow:hidden;
+    box-shadow:0 8px 22px rgba(24,24,27,.10);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .shopcat-img::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.24), transparent 55%);
+  }
+  .shopcat-img svg{width:36%;height:36%;color:var(--paper);position:relative;z-index:1;}
+  .shopcat-item:hover .shopcat-img,.shopcat-item:focus-visible .shopcat-img{
+    transform:translateY(-6px);box-shadow:0 18px 34px rgba(24,24,27,.20);
+  }
+  .shopcat-img.c1{background:linear-gradient(135deg,var(--cyan),#0072a3);}
+  .shopcat-img.c2{background:linear-gradient(135deg,var(--magenta),#8c004f);}
+  .shopcat-img.c3{background:linear-gradient(135deg,var(--yellow),#b98a00);}
+  .shopcat-img.c4{background:linear-gradient(135deg,#4a4a46,var(--ink));}
+  .shopcat-img.c5{background:linear-gradient(135deg,var(--ink),#3a3a3a);}
+  .shopcat-img.c6{background:linear-gradient(135deg,#0072a3,var(--ink));}
+  .shopcat-img.c7{background:linear-gradient(135deg,#8c004f,var(--ink));}
+  .shopcat-img.c8{background:linear-gradient(135deg,#b98a00,var(--ink));}
+  .shopcat-label{font-family:'Inter';font-weight:700;font-size:15px;color:var(--ink);}
+  .shopcat-item .hint{
+    display:block;font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-soft);opacity:0;transition:opacity .2s ease;
+  }
+  .shopcat-item:hover .hint,.shopcat-item:focus-visible .hint{opacity:1;}
 
   /* ---------- sample modal ---------- */
   .modal-overlay{
@@ -423,10 +453,9 @@
   }
   .modal-overlay.open{opacity:1;visibility:visible;transition:opacity .25s ease;}
   .modal-box{
-    background:var(--paper);border-radius:var(--radius-lg);
+    background:var(--paper);border-radius:var(--radius);
     max-width:920px;width:100%;max-height:86vh;overflow-y:auto;
-    padding:38px 34px;position:relative;
-    box-shadow:var(--shadow-lg);
+    padding:34px 30px;position:relative;
     transform:translateY(16px) scale(.98);transition:transform .25s ease;
   }
   .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
@@ -464,11 +493,9 @@
   /* ================= TESTIMONIALS ================= */
   .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .testi-card{
-    background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius-md);
-    padding:28px;position:relative;box-shadow:var(--shadow-sm);
-    transition:box-shadow .3s ease, transform .3s ease;
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);
+    padding:26px;position:relative;
   }
-  .testi-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
   .testi-card p{font-size:14.5px;color:var(--ink);margin-bottom:18px;}
   .testi-card .who{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink-soft);}
   .stamp{
@@ -491,25 +518,23 @@
   .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   label{font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px;}
   input,select,textarea{
-    width:100%;border:1.5px solid var(--rule-strong);border-radius:var(--radius-md);
-    padding:13px 16px;font-family:'Inter';font-size:14.5px;background:var(--paper);color:var(--ink);
-    transition:border-color .2s ease, box-shadow .2s ease;
+    width:100%;border:1.5px solid var(--rule-strong);border-radius:var(--radius);
+    padding:12px 14px;font-family:'Inter';font-size:14.5px;background:var(--paper);color:var(--ink);
   }
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(24,24,27,.06);}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink);}
   textarea{resize:vertical;min-height:100px;}
   .form-note{font-size:12.5px;color:var(--ink-soft);}
 
   /* ================= FOOTER ================= */
-  footer{background:var(--ink);color:rgba(243,239,230,.85);padding:72px 0 30px;}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(243,239,230,.15);}
+  footer{background:var(--ink);color:rgba(243,239,230,.85);padding:56px 0 26px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(243,239,230,.15);}
   .foot-brand .brand-text .name{color:var(--paper);}
   .foot-brand p{margin-top:14px;font-size:13.5px;color:rgba(243,239,230,.6);max-width:32ch;}
   footer h5{font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);margin-bottom:14px;}
   footer .flinks a{display:block;font-size:14px;color:rgba(243,239,230,.7);padding:6px 0;}
   footer .flinks a:hover{color:var(--yellow);}
   .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:22px;font-size:12.5px;color:rgba(243,239,230,.5);flex-wrap:wrap;gap:12px;}
-  .back-top{border:1px solid rgba(243,239,230,.3);border-radius:var(--radius-md);padding:9px 16px;font-size:12px;font-family:'IBM Plex Mono';color:var(--paper);transition:border-color .2s ease, transform .2s ease;}
-  .back-top:hover{transform:translateY(-2px);}
+  .back-top{border:1px solid rgba(243,239,230,.3);border-radius:var(--radius);padding:8px 14px;font-size:12px;font-family:'IBM Plex Mono';color:var(--paper);}
   .back-top:hover{border-color:var(--yellow);color:var(--yellow);}
 
   .whatsapp-fab{
@@ -531,6 +556,7 @@
     .proc-grid{grid-template-columns:repeat(2,1fr);row-gap:26px;}
     .why-grid{grid-template-columns:repeat(2,1fr);row-gap:26px;}
     .work-grid{grid-template-columns:repeat(2,1fr);}
+    .shopcat-grid{gap:28px 18px;}
     .testi-grid{grid-template-columns:1fr;}
     .contact-grid{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr 1fr;row-gap:28px;}
@@ -551,6 +577,7 @@
     .proc-grid{grid-template-columns:1fr;}
     .why-grid{grid-template-columns:1fr;}
     .work-grid{grid-template-columns:repeat(2,1fr);}
+    .shopcat-grid{grid-template-columns:repeat(2,1fr);gap:26px 16px;}
     .form-row{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr;}
   }
@@ -643,6 +670,74 @@
       <span>Name Plates</span><span class="dot">✦</span>
       <span>Note Books Printing</span><span class="dot">✦</span>
       <span>T-Shirt &amp; Sports Printing</span><span class="dot">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SHOP BY CATEGORY ================= -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="shopcat-head reveal">
+      <div class="eyebrow"><svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>Browse Our Work</div>
+      <h2>Shop by Category</h2>
+    </div>
+    <div class="shopcat-grid">
+      <button class="shopcat-item reveal" data-cat="Visiting Cards">
+        <span class="shopcat-img c1">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="5" y="11" width="30" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><line x1="10" y1="17" x2="22" y2="17" stroke="currentColor" stroke-width="1.6"/><line x1="10" y1="22" x2="18" y2="22" stroke="currentColor" stroke-width="1.6"/></svg>
+        </span>
+        <span class="shopcat-label">Visiting Cards</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="Wedding Cards">
+        <span class="shopcat-img c2">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="5" y="9" width="30" height="22" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M6 11l14 11 14-11" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="shopcat-label">Wedding Cards</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="Flex Banners">
+        <span class="shopcat-img c3">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M6 8v24l6-4 6 4 6-4 6 4V8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="shopcat-label">Flex Banners</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="T-Shirt Printing">
+        <span class="shopcat-img c4">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M13 7l7 4 7-4 6 6-5 4v16H12V17l-5-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="shopcat-label">T-Shirt Printing</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="Name Plates">
+        <span class="shopcat-img c5">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="4" y="14" width="32" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="8" cy="20" r="1.4" fill="currentColor"/><circle cx="32" cy="20" r="1.4" fill="currentColor"/></svg>
+        </span>
+        <span class="shopcat-label">Name Plates</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="Vinyl &amp; Stickers">
+        <span class="shopcat-img c6">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M8 8h18l6 6v18H8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M26 8v6h6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="shopcat-label">Vinyl &amp; Stickers</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="Caps">
+        <span class="shopcat-img c7">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M6 24c0-8 6-14 14-14s14 6 14 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 24h32" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="20" cy="10" r="1.6" fill="currentColor"/></svg>
+        </span>
+        <span class="shopcat-label">Caps</span>
+        <span class="hint">View all →</span>
+      </button>
+      <button class="shopcat-item reveal" data-cat="Bags">
+        <span class="shopcat-img c8">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M9 15h22l-2 19H11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 15v-3a6 6 0 0112 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
+        </span>
+        <span class="shopcat-label">Bags</span>
+        <span class="hint">View all →</span>
+      </button>
     </div>
   </div>
 </section>
@@ -887,29 +982,6 @@
         <h3>On-Time Delivery</h3>
         <p>Clear timelines from the first proof, with rush options for urgent jobs.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= WORK / GALLERY ================= -->
-<section class="section" id="work">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div>
-        <div class="eyebrow"><svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>Recent Work</div>
-        <h2>A Sample of Our Print Runs</h2>
-      </div>
-      <p class="desc">Photos of live jobs go here — swap these tiles for your own finished work.</p>
-    </div>
-    <div class="work-grid">
-      <button class="work-card c1 reveal" data-cat="Visiting Cards"><span>Visiting Cards</span><span class="hint">View all →</span></button>
-      <button class="work-card c2 reveal" data-cat="Wedding Cards"><span>Wedding Cards</span><span class="hint">View all →</span></button>
-      <button class="work-card c3 reveal" data-cat="Flex Banners"><span>Flex Banners</span><span class="hint">View all →</span></button>
-      <button class="work-card c4 reveal" data-cat="T-Shirt Printing"><span>T-Shirt Printing</span><span class="hint">View all →</span></button>
-      <button class="work-card c5 reveal" data-cat="Name Plates"><span>Name Plates</span><span class="hint">View all →</span></button>
-      <button class="work-card c6 reveal" data-cat="Vinyl &amp; Stickers"><span>Vinyl &amp; Stickers</span><span class="hint">View all →</span></button>
-      <button class="work-card c7 reveal" data-cat="Caps"><span>Caps</span><span class="hint">View all →</span></button>
-      <button class="work-card c8 reveal" data-cat="Bags"><span>Bags</span><span class="hint">View all →</span></button>
     </div>
   </div>
 </section>
