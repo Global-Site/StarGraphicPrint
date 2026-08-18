@@ -203,6 +203,70 @@
 
   /* ================= PRODUCTS ================= */
   .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+
+  /* ---------- generic gradient swatches (reused in deal blocks) ---------- */
+  .grad-c1{background:linear-gradient(135deg,var(--cyan),#0072a3);}
+  .grad-c2{background:linear-gradient(135deg,var(--magenta),#8c004f);}
+  .grad-c3{background:linear-gradient(135deg,var(--yellow),#b98a00);}
+  .grad-c4{background:linear-gradient(135deg,#4a4a46,var(--ink));}
+  .grad-c5{background:linear-gradient(135deg,var(--ink),#3a3a3a);}
+  .grad-c6{background:linear-gradient(135deg,#0072a3,var(--ink));}
+  .grad-c7{background:linear-gradient(135deg,#8c004f,var(--ink));}
+  .grad-c8{background:linear-gradient(135deg,#b98a00,var(--ink));}
+
+  /* ---------- carousel (arrow-scroll) ---------- */
+  .carousel-wrap{position:relative;}
+  .carousel-track{
+    display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:6px 4px 16px;scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .carousel-track::-webkit-scrollbar{display:none;}
+  .carousel-track .prod-card{flex:0 0 272px;scroll-snap-align:start;}
+  .carousel-btn{
+    position:absolute;top:42%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;
+    background:var(--paper);border:1.5px solid var(--ink);
+    display:grid;place-items:center;z-index:5;cursor:pointer;
+    box-shadow:0 8px 20px rgba(24,24,27,.18);
+    transition:background .2s ease,color .2s ease;
+  }
+  .carousel-btn:hover{background:var(--ink);color:var(--paper);}
+  .carousel-btn svg{width:18px;height:18px;}
+  .carousel-btn.prev{left:-8px;}
+  .carousel-btn.next{right:-8px;}
+  @media (max-width:860px){
+    .carousel-btn{display:none;}
+    .carousel-track{margin:0 -24px;padding-left:24px;padding-right:24px;}
+  }
+
+  /* ---------- deal blocks (small grouped boxes) ---------- */
+  .deals{padding:60px 0 12px;}
+  .deals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .deal-card{
+    background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--radius);
+    padding:22px;
+  }
+  .deal-card h3{
+    font-family:'Inter',sans-serif;font-weight:800;text-transform:none;
+    font-size:15px;line-height:1.3;margin-bottom:16px;letter-spacing:0;
+  }
+  .deal-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+  .deal-mini{
+    aspect-ratio:1/1;border-radius:2px;border:none;padding:0;cursor:pointer;
+    position:relative;overflow:hidden;transition:filter .2s ease, transform .2s ease;
+  }
+  .deal-mini:hover{filter:brightness(1.1);transform:translateY(-2px);}
+  .deal-see{
+    font-family:'IBM Plex Mono';font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px;
+  }
+  .deal-see:hover{color:var(--magenta);border-color:var(--magenta);}
+  @media (max-width:860px){
+    .deals-grid{grid-template-columns:repeat(2,1fr);row-gap:18px;}
+  }
+  @media (max-width:480px){
+    .deals-grid{grid-template-columns:1fr;}
+  }
   .prod-card{
     position:relative;background:var(--paper-2);
     border:1px dashed var(--rule-strong);
@@ -266,6 +330,61 @@
   .work-card.c6{background:linear-gradient(135deg,#0072a3,var(--ink));}
   .work-card.c7{background:linear-gradient(135deg,#8c004f,var(--ink));}
   .work-card.c8{background:linear-gradient(135deg,#b98a00,var(--ink));}
+  .work-card{cursor:pointer;border:none;text-align:left;font:inherit;transition:transform .25s ease, box-shadow .25s ease;}
+  .work-card:hover, .work-card:focus-visible{transform:translateY(-5px);box-shadow:0 16px 30px rgba(24,24,27,.22);}
+  .work-card .hint{
+    position:absolute;top:12px;right:12px;
+    font-family:'IBM Plex Mono';font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--paper);background:rgba(24,24,27,.5);padding:4px 8px;border-radius:2px;
+    opacity:0;transition:opacity .2s ease;
+  }
+  .work-card:hover .hint, .work-card:focus-visible .hint{opacity:1;}
+
+  /* ---------- sample modal ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(24,24,27,.78);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+    opacity:0;visibility:hidden;transition:opacity .25s ease, visibility 0s linear .25s;
+  }
+  .modal-overlay.open{opacity:1;visibility:visible;transition:opacity .25s ease;}
+  .modal-box{
+    background:var(--paper);border-radius:var(--radius);
+    max-width:920px;width:100%;max-height:86vh;overflow-y:auto;
+    padding:34px 30px;position:relative;
+    transform:translateY(16px) scale(.98);transition:transform .25s ease;
+  }
+  .modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+  .modal-close{
+    position:absolute;top:18px;right:18px;
+    width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink);
+    background:transparent;font-size:20px;line-height:1;display:grid;place-items:center;color:var(--ink);
+  }
+  .modal-close:hover{background:var(--ink);color:var(--paper);}
+  .modal-head{margin-bottom:26px;padding-right:40px;}
+  .modal-head h3{font-size:clamp(24px,3.4vw,32px);margin-bottom:8px;}
+  .modal-head p{font-size:14.5px;color:var(--ink-soft);max-width:60ch;}
+  .modal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+  .modal-tile{
+    aspect-ratio:4/3;border-radius:var(--radius);position:relative;overflow:hidden;
+    display:flex;align-items:flex-end;padding:10px;border:1px solid var(--rule-strong);
+  }
+  .modal-tile span{
+    font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--paper);background:rgba(24,24,27,.55);padding:3px 7px;border-radius:2px;
+  }
+  .modal-tile:nth-child(2){filter:brightness(1.14);}
+  .modal-tile:nth-child(3){filter:hue-rotate(15deg);}
+  .modal-tile:nth-child(4){filter:brightness(.9);}
+  .modal-tile:nth-child(5){filter:hue-rotate(-15deg);}
+  .modal-tile:nth-child(6){filter:brightness(1.08) saturate(1.2);}
+  .modal-tile:nth-child(7){filter:hue-rotate(25deg);}
+  .modal-tile:nth-child(8){filter:brightness(.95) saturate(.85);}
+  .modal-note{font-size:12.5px;color:var(--ink-soft);border-top:1px dashed var(--rule-strong);padding-top:16px;margin-bottom:20px;}
+  @media (max-width:720px){
+    .modal-grid{grid-template-columns:repeat(2,1fr);}
+    .modal-box{padding:26px 18px;}
+  }
 
   /* ================= TESTIMONIALS ================= */
   .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -443,6 +562,55 @@
   </div>
 </section>
 
+<!-- ================= DEAL BLOCKS ================= -->
+<section class="deals">
+  <div class="wrap deals-grid">
+    <div class="deal-card reveal">
+      <h3>Popular Prints This Week</h3>
+      <div class="deal-mini-grid">
+        <button class="deal-mini grad-c1" data-cat="Visiting Cards" aria-label="Visiting Cards"></button>
+        <button class="deal-mini grad-c2" data-cat="Wedding Cards" aria-label="Wedding Cards"></button>
+        <button class="deal-mini grad-c3" data-cat="Flex Banners" aria-label="Flex Banners"></button>
+        <button class="deal-mini grad-c6" data-cat="Vinyl &amp; Stickers" aria-label="Vinyl &amp; Stickers"></button>
+      </div>
+      <a class="deal-see" href="#products">See all products →</a>
+    </div>
+
+    <div class="deal-card reveal">
+      <h3>Personalise It | Start Small</h3>
+      <div class="deal-mini-grid">
+        <button class="deal-mini grad-c5" data-cat="Name Plates" aria-label="Name Plates"></button>
+        <button class="deal-mini grad-c7" data-cat="Caps" aria-label="Caps"></button>
+        <button class="deal-mini grad-c8" data-cat="Bags" aria-label="Bags"></button>
+        <button class="deal-mini grad-c4" data-cat="T-Shirt Printing" aria-label="T-Shirt Printing"></button>
+      </div>
+      <a class="deal-see" href="#products">See all products →</a>
+    </div>
+
+    <div class="deal-card reveal">
+      <h3>Bulk &amp; Business Orders</h3>
+      <div class="deal-mini-grid">
+        <button class="deal-mini grad-c3" data-cat="Flex Banners" aria-label="Flex Banners"></button>
+        <button class="deal-mini grad-c1" data-cat="Visiting Cards" aria-label="Visiting Cards"></button>
+        <button class="deal-mini grad-c7" data-cat="Caps" aria-label="Caps"></button>
+        <button class="deal-mini grad-c6" data-cat="Vinyl &amp; Stickers" aria-label="Vinyl &amp; Stickers"></button>
+      </div>
+      <a class="deal-see" href="#products">See all products →</a>
+    </div>
+
+    <div class="deal-card reveal">
+      <h3>Wedding Season Specials</h3>
+      <div class="deal-mini-grid">
+        <button class="deal-mini grad-c2" data-cat="Wedding Cards" aria-label="Wedding Cards"></button>
+        <button class="deal-mini grad-c5" data-cat="Name Plates" aria-label="Name Plates"></button>
+        <button class="deal-mini grad-c8" data-cat="Bags" aria-label="Bags"></button>
+        <button class="deal-mini grad-c6" data-cat="Vinyl &amp; Stickers" aria-label="Vinyl &amp; Stickers"></button>
+      </div>
+      <a class="deal-see" href="#products">See all products →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ================= PRODUCTS ================= -->
 <section class="section" id="products">
   <div class="wrap">
@@ -454,7 +622,11 @@
       <p class="desc">From a single business card to a full team's uniforms, every job is designed and printed in-house.</p>
     </div>
 
-    <div class="prod-grid">
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" id="prodPrev" aria-label="Scroll products left">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="carousel-track" id="productsTrack">
       <!-- Logo Design -->
       <div class="prod-card reveal">
         <svg class="corner tl" viewBox="0 0 12 12"><path d="M0 0H12M0 0V12" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
@@ -562,6 +734,10 @@
         <p>Team jerseys, event tees — DTF, vinyl &amp; sublimation printing.</p>
         <a class="prod-link" href="https://wa.me/917666960995?text=Hi%2C%20I%20want%20t-shirts%20printed" target="_blank" rel="noopener">Enquire →</a>
       </div>
+      </div>
+      <button class="carousel-btn next" id="prodNext" aria-label="Scroll products right">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -631,17 +807,32 @@
       <p class="desc">Photos of live jobs go here — swap these tiles for your own finished work.</p>
     </div>
     <div class="work-grid">
-      <div class="work-card c1 reveal"><span>Visiting Cards</span></div>
-      <div class="work-card c2 reveal"><span>Wedding Cards</span></div>
-      <div class="work-card c3 reveal"><span>Flex Banners</span></div>
-      <div class="work-card c4 reveal"><span>T-Shirt Printing</span></div>
-      <div class="work-card c5 reveal"><span>Name Plates</span></div>
-      <div class="work-card c6 reveal"><span>Vinyl &amp; Stickers</span></div>
-      <div class="work-card c7 reveal"><span>Caps</span></div>
-      <div class="work-card c8 reveal"><span>Bags</span></div>
+      <button class="work-card c1 reveal" data-cat="Visiting Cards"><span>Visiting Cards</span><span class="hint">View all →</span></button>
+      <button class="work-card c2 reveal" data-cat="Wedding Cards"><span>Wedding Cards</span><span class="hint">View all →</span></button>
+      <button class="work-card c3 reveal" data-cat="Flex Banners"><span>Flex Banners</span><span class="hint">View all →</span></button>
+      <button class="work-card c4 reveal" data-cat="T-Shirt Printing"><span>T-Shirt Printing</span><span class="hint">View all →</span></button>
+      <button class="work-card c5 reveal" data-cat="Name Plates"><span>Name Plates</span><span class="hint">View all →</span></button>
+      <button class="work-card c6 reveal" data-cat="Vinyl &amp; Stickers"><span>Vinyl &amp; Stickers</span><span class="hint">View all →</span></button>
+      <button class="work-card c7 reveal" data-cat="Caps"><span>Caps</span><span class="hint">View all →</span></button>
+      <button class="work-card c8 reveal" data-cat="Bags"><span>Bags</span><span class="hint">View all →</span></button>
     </div>
   </div>
 </section>
+
+<!-- ================= SAMPLE MODAL (opens on gallery click) ================= -->
+<div class="modal-overlay" id="sampleModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <div class="eyebrow" id="modalEyebrow"><svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>Category Samples</div>
+      <h3 id="modalTitle">Category</h3>
+      <p id="modalDesc"></p>
+    </div>
+    <div class="modal-grid" id="modalGrid"></div>
+    <p class="modal-note">These are placeholder tiles — swap in your real product photos here once ready, so customers see actual finished designs.</p>
+    <a class="btn btn-primary" id="modalWhatsapp" target="_blank" rel="noopener">Enquire About This — WhatsApp →</a>
+  </div>
+</div>
 
 <!-- ================= TESTIMONIALS ================= -->
 <section class="section" style="padding-top:0;">
@@ -695,11 +886,11 @@
         </div>
         <div class="item">
           <svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>
-          <div><h4>Shop Address</h4><p>Star Graphic, Main Market Road,<br>Your City, State — 000000</p></div>
+          <div><h4>Shop Address</h4><p><a href="https://maps.google.com/?q=Star+Graphic,+Shop+No.+99,+Khudbi+Manzil,+Mumbra+Market+Rd,+Bombay+Colony,+Mumbra,+Thane,+Maharashtra+400612" target="_blank" rel="noopener">Star Graphic, Shop No. 99, Khudbi Manzil,<br>Mumbra Market Rd, Bombay Colony,<br>Mumbra, Thane, Maharashtra 400612</a></p></div>
         </div>
         <div class="item">
           <svg class="regmark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"></circle><line x1="16" y1="0" x2="16" y2="32"></line><line x1="0" y1="16" x2="32" y2="16"></line></svg>
-          <div><h4>Hours</h4><p>Mon – Sat, 10:00 AM – 8:00 PM</p></div>
+          <div><h4>Hours</h4><p>Open all days<br>Friday: Half day</p></div>
         </div>
       </div>
 
@@ -820,6 +1011,79 @@
 
   // footer year
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- category sample modal ----------
+  const CATEGORY_DATA = {
+    "Visiting Cards": { css: "c1", desc: "A look at recent visiting card designs — minimal, bold and premium finish layouts.", wa: "visiting card" },
+    "Wedding Cards":  { css: "c2", desc: "Designer invite layouts — from classic single-card prints to premium boxed sets.", wa: "wedding card" },
+    "Flex Banners":   { css: "c3", desc: "Outdoor flex banners printed for shops, events and hoardings in any size.", wa: "flex banner" },
+    "T-Shirt Printing": { css: "c4", desc: "Team jerseys and event t-shirts printed with DTF, vinyl and sublimation.", wa: "t-shirt printing" },
+    "Name Plates":    { css: "c5", desc: "Acrylic, steel and wooden name plates for homes, offices and shops.", wa: "name plate" },
+    "Vinyl & Stickers": { css: "c6", desc: "Cut vinyl, decals, labels and vehicle graphics in custom shapes and sizes.", wa: "vinyl and stickers" },
+    "Caps":           { css: "c7", desc: "Embroidered and printed caps made for teams, staff uniforms and events.", wa: "caps" },
+    "Bags":           { css: "c8", desc: "Non-woven, jute and tote bags branded with your logo and colours.", wa: "bags" }
+  };
+  const SAMPLE_COUNT = 8;
+
+  const modal = document.getElementById('sampleModal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalGrid = document.getElementById('modalGrid');
+  const modalWhatsapp = document.getElementById('modalWhatsapp');
+  const modalClose = document.getElementById('modalClose');
+  let lastFocused = null;
+
+  function openCategoryModal(catName) {
+    const data = CATEGORY_DATA[catName];
+    if (!data) return;
+    modalTitle.textContent = catName;
+    modalDesc.textContent = data.desc;
+    modalWhatsapp.href = `https://wa.me/917666960995?text=${encodeURIComponent('Hi, I saw your ' + data.wa + ' designs and I\'m interested. Please share more details.')}`;
+
+    modalGrid.innerHTML = '';
+    for (let i = 1; i <= SAMPLE_COUNT; i++) {
+      const tile = document.createElement('div');
+      tile.className = `modal-tile ${data.css}`;
+      const label = document.createElement('span');
+      label.textContent = `Design ${String(i).padStart(2, '0')}`;
+      tile.appendChild(label);
+      modalGrid.appendChild(tile);
+    }
+
+    lastFocused = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  }
+
+  function closeCategoryModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll('[data-cat]').forEach(card => {
+    card.addEventListener('click', () => openCategoryModal(card.dataset.cat));
+  });
+  modalClose.addEventListener('click', closeCategoryModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeCategoryModal(); });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeCategoryModal();
+  });
+
+  // ---------- carousel arrow scroll ----------
+  function wireCarousel(trackId, prevId, nextId) {
+    const track = document.getElementById(trackId);
+    const prev = document.getElementById(prevId);
+    const next = document.getElementById(nextId);
+    if (!track || !prev || !next) return;
+    const scrollAmount = () => track.querySelector('.prod-card')?.offsetWidth + 22 || 300;
+    prev.addEventListener('click', () => track.scrollBy({ left: -scrollAmount() * 2, behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: scrollAmount() * 2, behavior: 'smooth' }));
+  }
+  wireCarousel('productsTrack', 'prodPrev', 'prodNext');
 
   // enquiry form -> WhatsApp
   const WHATSAPP_NUMBER = "917666960995"; // TODO: replace with your real WhatsApp business number
